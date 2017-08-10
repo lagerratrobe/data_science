@@ -1,9 +1,0 @@
-Starting Source Page
-- https://geonames.usgs.gov/domestic/
-
-All_States_Data_Format
-- https://geonames.usgs.gov/domestic/states_fileformat.htm
-
-All_States_Fed_Data_Format
-- https://geonames.usgs.gov/domestic/fips55_fileformat.htm
-
