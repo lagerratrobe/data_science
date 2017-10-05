@@ -1,0 +1,61 @@
+Data Analysis Class - 10/2/2017
+
+Introduction:
+  Around 40 people in the class, varied set of backgrounds, most people already working and looking to expand their skillsets.  A few poeple wanting to pivot, or looking for a new career. Several people mentioned being in positions where they are "swimming in data" and need to have more skills in order to unblock themselves. Also several people who are not specifically in Analytic roles, but who have to do analysis as parts of their day-to-day lives.
+  
+Course Requirements: (3 books)
+  - Statistics in a Nutshell
+  - What is a P-Value Anyway?
+  - R for Data Science
+  
+Class overview:
+- 10 weeks of clss
+- Think about projects to do with skills from this class
+- There is a final project (can be done individually)
+
+Changes in Market Trends
+- Historically, it was enough to do retrospective analysis to figure out "what happened"
+- Now however, companies would like to be able to predict what will happen in the futore and make recommendations
+
+Data Anlytics Tool Box:
+- R and Python
+- SQL
+- Machine learning
+
+(Train and retrain models continuously)
+
+Excel exercise:
+- Seatmate is named "Barb"
+
+R Statistical Programming Language
+- Similar to MatLab
+- More mature for statistical analysis than Python, but Python is catching up
+
+Data Mining to Machine Learning
+
+Supervised learning : regression and classification
+
+Unsupervised learning: clusterning 
+
+Linear regression
+Logistic regressions
+Decision trees
+Vector machines
+Neural Networks
+
+Overview of the Iterative Data Analysis Process:
+  Ask questions > Wrangle Data > Explore Data > Draw conclusion > Communicate findings
+  
+Ask Questions:
+  Why did sales rise in the past few years?
+  
+Wrangle data:
+  Examples of data types that need to be wrangled:
+    Dates
+    Currency
+    No-data
+
+Excel work: (Use vehicle data provided in class)
+  Which car is most efficient
+  Are any of the variables related to each other
+
