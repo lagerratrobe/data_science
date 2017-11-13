@@ -35,7 +35,7 @@ Data Mining to Machine Learning
 
 Supervised learning : regression and classification
 
-Unsupervised learning: clusterning 
+Unsupervised learning: clusterning
 
 Linear regression
 Logistic regressions
@@ -58,4 +58,105 @@ Wrangle data:
 Excel work: (Use vehicle data provided in class)
   Which car is most efficient
   Are any of the variables related to each other
+
+----------------
+
+Class 2: Intro to Graphical Data Anlysis
+
+- Recap of Day 1:
+
+Sometimes you don't go through all of the Data Analysis steps.  You might stop at the Data Exploration or even Wrangling step because you find that your data is no good.
+
+- R: made of packages, only comes with a few basic ones
+
+- To install:
+  install.packages("package name")
+
+- To use/load a package:
+  library(<package>)
+(equivalent to "import" statement in Python) loads package into memory
+
+- Alternate way to call function:
+  package_name::function_name()
+
+- To control the size of a plot, use the repr package:
+  library(repr)
+  options(repr.plot.width=4, repr.plot.height=4)
+
+- To select a subset of rows with a matching condition, use the filter() command.
+  filter(mpg, cyl == 5)
+This selects the cars in the data set that have 5 cylinders
+
+
+--------------------
+LESSON 3: 10/16/2017
+--------------------
+
+- Project Goals:
+Question, Data Set, Team/Self, 3-7 pg. Powerpoint
+Talk about all 5 stages
+Top 3 problems you found and solved
+Presentation peer rating
+
+- Factors are an very interesting concept.  Let's you create classes that can be numerically compared to one-another.
+  my_class <- as_factor(mpg$class)
+
+- Regression in R: (INstructor segway)
+my_model <- lm(mpg~., data=mpg)
+
+Gets linear relationship between mpg and all other variables
+
+- How to read CSV files:
+    read_csv() which is part of tidyverse::readr
+    read_tsv() for tab-separated values
+    read_delim() for custom delimiter text files
+(There is also a read.csv() function that is part of the base R install)
+
+- How to write out files:
+    write_csv()
+    write_tsz()
+    write_excel()
+
+-----------------------------
+Lesson 4: Data Transformation
+-----------------------------
+Review of last week's homework:
+- months as factor, they can cycle as in month 1 of this year versus month 1 of next year
+- No easy way to numerically compare observations with factors, and sometimes you want to (ie number of bedrooms)
+- In the class exercise, the ID field could be removed, since a random unique identifier is not really needed to do the data analysis.
+
+- str_detect(data, <regex>): works by creating a vector index of all the positions within a string that match the regular expression.
+
+ERD: (Entity relation Diagram) shows relationship between several DB tables
+
+"Slowly changing dimensions": track movement and changes in data (need to look this up)
+
+------------------------------
+Lesson 5: Data Transformation
+------------------------------
+- Bargaining for team leads - no thanks!
+- Went over the class project
+- Yes/No question is a type of A/B test where you evaluate which option is best, A or B
+- Everything related to obeservation is stored in a single row in Statistically normalized  data
+- Loops can usually be converted into vectorized operations which are faster
+
+- Look up "star schema"
+
+---------------------
+Lesson 6: Statistics
+---------------------
+- "inferential" just means that you're working with a sample
+- histogram breaks up values into buckets or bins
+- The longer the tail, the more the ditribution is skewed in that direction
+- Look up how to calculate an absolute value  (square-root of squared values)
+- Variance is looking at the sum of the differences between a specific point and the mean
+- What the hell is "Mean Absolute Deviation"?
+The steps to find the MAD include:
+1. find the mean (average)
+2. find the difference between each data value and the mean
+3. take the absolute value of each difference
+4. find the mean (average) of these differences
+- KNN Classifier (Nearest Neighbor)
+
+- P value less than 5% is what we want, otherwise it indicates that variable is not meaningful
 
