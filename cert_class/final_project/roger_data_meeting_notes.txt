@@ -1,0 +1,288 @@
+Exploration of Kitty Litter Sales Data
+--------------------------------------
+Main question from Amanda's friend:
+  "How can they relate Adwords data to the kitty litter.  Does the Adwords spending help them in any way?"
+
+Sale Data Dictionary
+--------------------
+1.  amazon-order-id: NA unique order id, not very useful for us
+2.  merchant-order-id: NA Unique order id from merchant
+3.  purchase-date: self explanatory
+4.  last-updated-date:order's been modified after initial
+5.  order-status: Describes whether the order has been shipped, cancelled, etc.
+6.  fulfillment-channel: NA Amazon vs. Merchant ????
+7.  sales-channel: NA
+8.  order-channel: NA
+9.  url: NA
+10. ship-service-level: Type of shipping requested. (Is this reflected in final price?)
+11. Product Name: Contains 2 different types of data, Product_and_size and Discounted or not
+12. SKU: NA
+13. asin: specific product ID
+14. item_status: ??? compare to order status and see how they compare
+15. quantity: size of order
+16. currency: US or Canadian
+17. item-price: self-explanatory
+18. item-tax: Amount of tax charged
+19. Shipping Price: amount charged per order for shipping
+20. Shipping tax: tax on shipping amount
+21. gift-wrap-price: NA
+22. gift-wrap-tax: NA
+23. item-promotion-discount: How much of a discount
+24. ship-promotion-discount: NA
+25. ship-city: has NULLS NA
+26. ship-state: has nulls NA
+27. ship-postal-code: has nulls NA
+28. ship-country: has nulls NA
+29. promotion-ids: compare to 23 and also product name (11)
+30. item-extensions-date: NA
+31. purchase-order-number: NA
+32. customized-url: NA
+33. customized-page: NA
+
+Questions about Sales data fields:
+- How does 23 compare to 11 when item is discounted?
+- How old are the oldest "pending" values?
+- We will need create a new data set that merges the Adwords and Kitty Litter sales sets together
+
+AdWords Data Dictionary:
+1. Date: Needs to be converted into and split into weekday and month
+2. Cost: what they paid for ads that day
+3. Clicks: how many times ad was clicked on
+4. Avg: Cost/clicks  (NA)
+
+Research how Adwords work - [Roger]
+
+------------------
+Sun, Nov 26, 2017:
+------------------
+
+Steps I took to process this data.
+
+1. Converted the tab-separated "kitty_litter_sales-Sales.tsv" into a "|" delimited CSV named "new_kitty_litter.csv"
+
+2. Loaded "new_kitty_litter.csv" into a SQLite3 DB named "final_project"
+$ sqlite3 final_project.db
+SQLite version 3.8.6 2014-08-15 11:46:33
+Enter ".help" for usage hints.
+sqlite> .mode csv
+sqlite> .separator "|"
+sqlite> .import "new_kitty_litter.csv" sales
+sqlite> .tables
+sqlite> .mode columns
+sqlite> .width 80
+
+NOTE: If you want to see results "unaligned", do the following
+sqlite> .separator "|"
+sqlite> .mode list
+
+To see column headers:
+sqlite> .header on
+
+sales
+sqlite> .schema sales
+CREATE TABLE sales(
+  "amazon-order-id" TEXT,
+  "merchant-order-id" TEXT,
+  "purchase-date" TEXT,
+  "last-updated-date" TEXT,
+  "order-status" TEXT,
+  "fulfillment-channel" TEXT,
+  "sales-channel" TEXT,
+  "order-channel" TEXT,
+  "url" TEXT, ...
+<SNIP>
+
+3. Created a new table with only the fields of interest and with the fields renamed so later analysis would be easier. (By changing the "-" to "_", or eliminating it entirely, quotes or back-ticks won't be needed in R later when we do queries.)
+
+$ `purchase-date`
+$ `order-status`
+$ `product-name`
+$ quantity
+$ currency
+$ `item-price`
+$ `promotion-ids`
+item-promotion-discount:      \
+ship-city: has NULLS NA        \
+ship-state: has nulls NA        ----- ones I'm interested in
+ship-postal-code: has nulls NA /
+ship-country: has nulls NA    /
+
+sqlite> CREATE TABLE sales_subset AS SELECT "purchase-date" AS purchase_date, "order-status" AS order_status, "product-name" AS product_name, "quantity", "currency", "item-price" AS price, "promotion-ids" AS promotion_id, "item-promotion-discount" AS discount, "ship-city" AS city, "ship-state" AS state, "ship-postal-code" AS postcode, "ship-country" AS country FROM sales;
+
+sqlite> .schema sales_subset
+CREATE TABLE sales_subset(
+  purchase_date TEXT,
+  order_status TEXT,
+  product_name TEXT,
+  quantity TEXT,
+  currency TEXT,
+  price TEXT,
+  promotion_id TEXT,
+  discount TEXT,
+  city TEXT,
+  state TEXT,
+  postcode TEXT,
+  country TEXT
+);
+
+4. Did some data validation on each of the fields.
+
+- There are 57 records where the "order_status" is either "Shipped" or "Shipping" and the "price" is null.  I believe these are the orders for samples and am deleting them.  The reason I don't want to remove the 'Cancelled' orders is because I believe AdWords might still have convinced a customer to buy something initially, but then afterwards they found it cheaper elsewhere and decided to cancel the order.
+    sqlite> delete from sales_subset where price = '' and order_status != 'Cancelled';
+- There are 875 records for 'Cancelled' orders.  These all have "currency" = NA.  I set these all to "currency" = 'USD'.
+    sqlite> update sales_subset set currency = 'USD' where currency = '' and order_status = 'Cancelled';
+- Setting all remaining null prices to '0.0' as these are for 'Cancelled' orders only:
+    sqlite> update sales_subset set price = '0.0' where price = "";
+    sqlite> select changes();
+    875
+
+Once this was done, the only fields that had null values in them "promotion_id", "discount" and a very small number of the geographic ones.
+
+5. Looked at the "product_name" fields to see how they are varied and related.  Created a "product_types" lookup table that contains a cleaned generic product name and a code to identify it.
+
+type                                                                                    code
+--------------------------------------------------------------------------------------  ----------
+NonScents Refrigerator Deodorizer                                                       1
+NonScents Laundry Basket/Hamper/Gym Bag/Closet/Drawer/Car Deodorizer                    2
+NonScents Odor Control Cat Litter Deodorizer - Professional Strength Odor Neutralizer   3
+NonScents Odor Control Cat Litter Deodorizer - Professional Strength Odor Eliminator    4
+NonScents Pet Odor Remover Spray                                                        5
+NonScents No.2 Toilet Spray                                                             6
+Nonscents Odor Control Cat Litter Deodorizer                                            7
+NonScents Shoe Deodorizer                                                               8
+NonScents Dog Oral Spray                                                                9
+
+Now I'm pretty sure that there's only one type of "Odor Control Cat Litter Deodorizer", so I got rid of codes 3 and 4 and set them all to 7.  Which left me this:
+
+sqlite> select * from product_types;
+type                                                                                    code
+--------------------------------------------------------------------------------------  ----------
+NonScents Refrigerator Deodorizer                                                       1
+NonScents Laundry Basket/Hamper/Gym Bag/Closet/Drawer/Car Deodorizer                    2
+NonScents Pet Odor Remover Spray                                                        5
+NonScents No.2 Toilet Spray                                                             6
+Nonscents Odor Control Cat Litter Deodorizer                                            7
+NonScents Shoe Deodorizer                                                               8
+NonScents Dog Oral Spray                                                                9
+
+6. Next I looked at the sizes that are described in the original product-name fields.  I created a new "size" column and used some SQL LIKE commands to populate it.
+
+    sqlite> update sales_subset set size = '16oz' where product_name like '%16oz%';
+etc, etc,
+
+That still left me with a ton of unique "product-name" entries that lacked a size.
+
+7. But first, I reset all the product-name values to be consistent based on the entries from the product_types table.
+NOTE: This is the ONLY way that you can update a value in a SQLite table using data from another table. Joins won't work.
+    sqlite> update sales_subset set product_name = (select type from product_types where code = sales_subset.product_code);
+
+That left me with the following that lacked a "size" description.
+
+product_code|product_name|size
+1|NonScents Refrigerator Deodorizer|
+2|NonScents Laundry Basket/Hamper/Gym Bag/Closet/Drawer/Car Deodorizer|
+6|NonScents No.2 Toilet Spray|
+8|NonScents Shoe Deodorizer|
+9|NonScents Dog Oral Spray|
+
+8. Since I was unable to extrapolate a size from the other entries in the DB so I looked them up online.
+    sqlite> update sales_subset set size = '50ml' where product_code = 6;
+    sqlite> update sales_subset set size = '200g' where product_code = 1;
+    sqlite> update sales_subset set size = '4oz' where product_code = 9;
+    sqlite> update sales_subset set size = '150g' where product_code = 8;
+
+After I was done, these are the unique product_name, size categories I had left in the data;
+
+product_code|product_name|size
+1|NonScents Refrigerator Deodorizer|200g
+2|NonScents Laundry Basket/Hamper/Gym Bag/Closet/Drawer/Car Deodorizer|300g
+5|NonScents Pet Odor Remover Spray|24oz
+5|NonScents Pet Odor Remover Spray|32oz
+6|NonScents No.2 Toilet Spray|50ml
+7|Nonscents Odor Control Cat Litter Deodorizer|16oz
+7|Nonscents Odor Control Cat Litter Deodorizer|8lb
+8|NonScents Shoe Deodorizer|150g
+9|NonScents Dog Oral Spray|4oz
+
+9. Wrote out the table
+
+sqlite> .headers on
+sqlite> .mode csv
+sqlite> .separator "|"
+sqlite> .output roger_final_sales_data.csv
+sqlite> select * from sales_subset;
+
+10. Now to recast this data into a new table.
+
+sqlite> CREATE TABLE new_sales AS SELECT strftime('%Y-%m-%dT%H:%M:%S', purchase_date) as purchase_date,
+   ...> order_status,
+   ...> product_name,
+   ...> cast(quantity as int) as quantity,
+   ...> cast(currency as varchar(3)) as currency,
+   ...> cast(price as real) as item_price,
+   ...> promotion_id,
+   ...> cast(discount as real) as discount,
+   ...> city,
+   ...> state,
+   ...> postcode,
+   ...> country,
+   ...> cast(product_code as int) as product_code,
+   ...> size FROM sales_subset;
+
+11. Imported the Adwords data into Sqlite:
+sqlite> .mode csv
+sqlite> .separator "|"
+sqlite> .import "roger_final_adwords.csv" adwords
+
+sqlite> .schema adwords
+CREATE TABLE adwords(
+  "Cost" TEXT,
+  "Clicks" TEXT,
+  "Avg" TEXT,
+  "YMD" TEXT
+);
+sqlite> create table new_adwords as select cast("Cost" as real) as cost,
+   ...> cast("Clicks" as int) as clicks,
+   ...> cast("Avg" as real) as avg,
+   ...> strftime('%Y-%m-%d', "YMD") as date;
+
+sqlite> .schema new_adwords
+CREATE TABLE new_adwords(
+  cost REAL,
+  clicks INT,
+  avg REAL,
+  date
+);
+
+---------------
+SQL in Jupyter
+---------------
+One more thing to check out:
+    https://github.com/catherinedevlin/ipython-sql
+
+-----------------------
+Using count() in SQLite
+-----------------------
+Need to test if this works the same way in PostgreSQL
+    http://www.sqlitetutorial.net/sqlite-count-function/
+
+------------------------
+Plots I want to make
+-----------------------
+[X] - I. SUM of Revenue per week (dotted line chart, revenue on y, date on x)
+[X] - II SUM of Revenue per day
+[X] - III. Sum of revenue by product name (bar chart, Revenue on Y, Products on X)
+[ ] - IV. Sum of Revenue by product, by week (probably has to be one chart per product)
+[X] - V. Sum of Adwords clicks per week
+[X] - VI. Adwords clicks over time (x=day, y=clicks)
+
+------ After Sales and AdWords are joined --------
+- SUM of daily sales per daily_clicks
+- SUM of daily sales per daily_cost
+- weekly_sales and weekly_cost versus time in the same line chart (would be nice to have 2 different axes ranges for this)
+- side-by-side bars, one with ad clicks, one with total revenue for a chunk of time
+
+Is there a meaningful relationship between the money that they spend on AdWords and the amount of revenue that they make?
+
+- plot daily Adwords clicks to Daily Sales
+- plot daily AdWords cost to Daily Sales
