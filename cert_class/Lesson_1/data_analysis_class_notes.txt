@@ -17,7 +17,7 @@ Changes in Market Trends
 - Historically, it was enough to do retrospective analysis to figure out "what happened"
 - Now however, companies would like to be able to predict what will happen in the futore and make recommendations
 
-Data Anlytics Tool Box:
+Data Aanlytics Tool Box:
 - R and Python
 - SQL
 - Machine learning
@@ -160,3 +160,106 @@ The steps to find the MAD include:
 
 - P value less than 5% is what we want, otherwise it indicates that variable is not meaningful
 
+---------------------
+Lesson 7: Descriptive Statistics
+---------------------
+- Central tendencies:
+    - Mode is useful to show factors as it will report the factor that is used the most
+    - Median is useful for ordinal data like a Pain Scale
+    - Mean is useful for symetrical data, when skewed, median is better
+- sqrt((x1 - x2) **2) or absolute differences are often used to describe a data value
+- Normal Distribution:
+    95% of values fall within 2 std deviations of mean
+    99% of values fall within 3 std deviations of mean
+- Probablity distribution:
+    plot(pnorm(seq)~seq) R function plots
+- Error = random error + bias
+    Low random errom + high bias means data is tightly clustered, but there are bias regions which are clustered not around central tendency
+    High random error + low bias means data will be scattered all over the place
+ - Determining sample size to achieve statistical significance
+    n = (2 * std_dev)/ effect or difference you want to be within  NOTE: confidence is represnted by numbers of std_dev
+- degrees of freedom : easy way to do it is (sample size - number of variables)
+- stratify data: how to split data up into different pieces, ie split housing prices by zipcode
+- Data Sampling:
+    sample(data, size = 100, replace = FALSE) - R function to select a 100 value sample from a data set
+- Confidence interval is usually acceptable around 95%, but it depends on application.  99% is needed for things like airplane safety.
+
+- the p-value is the probability that when the null hypothesis is true, the statistical summary would be the same as, or of greater magnitude, than the actual observed results.
+
+---------------------------
+Lesson 8 - Machine Learning
+---------------------------
+- Statistics review:
+  * Inferentian vs. Descriptive stats.
+  * Distance: confidence interval, Key Nearest Neighbor using Euclidean Distance. Probabilistic distance also.
+  * Distribution: tells us the probability that something will be near the mean
+  * Confidence Interval:
+
+Machine Learning definitions:
+- Data mining: allow you to discover patterns in data
+- machine learning: algorthms to predict/decide using the data patterns
+- Biz intel: Extracting info from data
+- Analytics: manual discovery and communication of data patterns
+- Data Science: Extracting knowledge from data
+
+Data Mining:
+- all about patterns, aka "mathematical model"
+
+Machine Learning:
+- machines learn or train models from data
+- trained models are used to make forecasts
+
+Linear regression is an example of data mining, machine learning and statistics, all combined
+
+Degrees of freedom come into play when you are trying to create a linear regression model to fit different points
+- General linear additive models: using more than just x and y,
+
+- Supervised models learn from marked cases which contain a label that includes the true value that we'd like to predict in the future.  Training helps minimize the error between the model prediction and the label value.
+
+- Data quality and structure problems can make supervised learning difficult.
+  * Insufficient data
+  * Poor data quality
+  * Unrepresentative
+  * Unimportant
+  * Collinear features
+
+- Underfitting and overfitting
+  * Overfit: can't be generalied. Learned a specific data set with zero error
+  * Underfit model: only using one or 2 coefficients
+
+- Regression model: predict numeric values
+- Classifiers: predict categories
+
+---------------------
+Penn State Stats pages
+---------------------
+https://onlinecourses.science.psu.edu/stat100/node/35
+
+---------------------
+Lesson 8: Nov 27, 2017
+----------------------
+
+Presentation from Disney Consumer Experience (Chris Lomax, Katie Jo Giesbers)  Both Directors in this division.
+
+"in 2008, tablets weren't even considered as a factor in entertainment"
+- Starwave purchased in 1998. Today Seattle is the tech hub for Disney with over 800 people. Focus on digital streaming of full episodes.  Trying to cater to the "cord-cutters".
+- Areas of Focus for this team:
+    * Inventory Mgt: How many ads can they serve to their clients? Helped them understand how the business was working.  Figure out how many times a specific ad can be displayed, on what channels, in what areas, during what shows, etc.
+
+    * Forecasting:   Portfolio-level forecasting. Large-scale forecasting.  Things like changing the autentication process completely change the assumptions in the models use to forecast behavior. They work with a science team to do the modeling.  They have never-ending change in their models and analysis. Digital data is not ideal, much cookie-based data, which isn't very good, especially with user-level data.  Digital streaming is not growing on traditional platforms in the same way it is on things like YouTube and Facebook.  Bar chart with color (stacked bars) used to show predicted trends.
+
+    * BI Reporting:  Tableau exploited as a product to present data to executives.  Self-service analytics and dashboards. Important to provide context and color - tell a story. What's happening, and it's expected - or not.  Tips for getting users to use self-service BI. Dashboards with too much shit in them was a problem.  People had no idea how to use filters, etc.  Things need to be broken up into smaller, focused chunks that are self-explanatory.  "Don't just buold what they want!"
+
+    * Data Management/Quality:  They don't like having this role, but they have to understand the data that goes into the forecasts.  They usually are the ones that find bugs in the data. They get alot of data from other parties, like HuLu. An example of a problem they caught was excessive usage stats from TV's that didn't get turned off and were reporting that users were watching 60 hours straight of TV.  Effect was that companies would be charged for advertising when in fact a real person had not seen the ad.
+
+    * Strategic Projects: What is the impact of the proposed changes that the excutive team is thinking of making? What would happen if they only had the last season of "Gray's Anatomy" available online?  Ad Repetition Analyis: Wanted to see how bad the repetition was on two platforms from 10/2015 - 08/2016. Checked raw log files of 300 Million records. Question 1 - What is a repeated ad? Is it the same ad, 2 ads for the same company, etc?  Findings: Very few ads show more than 3x in an episode. BUT 50% of ads are repeats from one episode to another.  Most of the repeats happen right away (after the prior pod). Out of 17 ads, only 8 were unique.
+
+--------------------
+Lesson 9
+-------------------
+- Unsupervised learning:
+    * Does not require labels
+    * KNN K=3 "the 3 nearest neighbors" (Can use Euclidean or Manhattan distance)
+    * K-means Clustering (Lloyd's Algorithm)
+- Lots of clustering algorithms
+- Finding the right number of clusters (k versus WCCS)
