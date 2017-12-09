@@ -1,0 +1,37 @@
+Basics of Data Analysis,  November 15, 2017
+
+This work is intended to synthesize concepts of Data Analysis that have been presented to me in classes, books and other written materials.  In no way do I claim any sort of originality to the material here, just that it is organized in a manner that I understand and find useful.  Please feel free to point out errors, or suggestions for improvement, to my Twitter alias, @lagerratrobe.
+
+- What is Data Analysis?
+    Simply put, Data Analysis is the term used to describe the process of examining data for the purpose of obtaining insights from it and then communicating them to others.  This process is usually broken down into 5 components:
+
+  1. Form a question
+  2. Find/Wrangle data
+  3. Explore the data
+  4. Analyze the data
+  5. Communicate results of analysis
+
+    Sometimes the order of the steps is changed, for example it might be necessary to Explore the data before you can Wrangle it to suit the needs of your analysis, but usually all of the steps are present when analyzing a data set.
+
+- Goal of Data Analysis
+    The ultimate goal of Data Analysis can be many things, but generally it is to describe whether various factors have worked together to produce a certain outcome, to quantitatively describe how those factors relate to one another, and in some cases to create a model of those interactions which can be used to predict how future members of a data set will behave.  The end result of an analysis will usually be charts and figures that represent the data in various ways and that 'captures its essence'.  In cases where the desire is to predict future behavior, numerical models and programs might also be part of the end result.
+
+- What is Data?
+    Data comes in an almost infinite variety of forms, but for our purposes it consists mostly of observations which are recorded in some fashion that allows us to collect them and review them at a later date.  Data can generally be broken down into 2 types; Structured Data, which is comprised of clearly definable data types expressed in a pattern that makes them searchable and for which a data model can be defined; and Unstructured Data, which is sometime jokingly referred to as "everything else".  A classic example of a Structured Data set would be a spreadsheet with data stored in rows and columns.  An example of Unstructured Data would be a photograph or all the text of a book.  A key point to keep in mind is that Unstructured Data often is highly structured, but either has not yet been modeled, or the means of modeling it have not yet been discovered.  For the 2 examples above of Unstructured Data, there now exist many ways of extracting, organizing and analyzing data from them.  The methods and techniques covered here are intended for use on Structured Data sets.
+
+- Data Types
+    In order to accurately and efficiently analyze a data set, it is important to identify what types of data are in it.  When looking at a data set for the first time, identify whether the data falls into the following cateories:
+
+-  Quantitative: can be expressed as a number and quantified
+    -  Discrete: cannot be subdivided into smaller chunks, integer (number of children, or pets, in a family)
+    -  Continuous: can be subdivided into smaller amounts, real number (weight of an object, length )
+  
+-  Qualitative: expressed as text
+    -  Binary: Can only be represented in 2 ways (on or off, true or false, faulty or non-faulty)
+    -  Nominal: Can take on more than 2 values, but have no order (defect category, religion, race)
+    -  Ordinal: Can take more than 2 values and has a natural order (A-F letter grades, 1-10 survey scale)
+
+        NOTE: "data type" in this section should not be confused with the representation, or storage type of an observation.  For example, as mentioned above, Discrete data should be represented as an integer, while Continuous data would be represented as a real number or double.  Qualitative data can always be stored as character or string data, even when it is made up of numbers, as in the "1-10 Survey scale" example.  Often, data that is imported from CSV files, or which has gone through other ETL processes, will need to have it's representation type changed. This is easy to do in most software packages and a key component of Data Wrangling.
+
+    Knowing what data type a particular observation is helps you to determine what types of questions can be asked of it.
+
