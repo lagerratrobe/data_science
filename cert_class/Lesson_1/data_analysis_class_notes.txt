@@ -263,3 +263,45 @@ Lesson 9
     * K-means Clustering (Lloyd's Algorithm)
 - Lots of clustering algorithms
 - Finding the right number of clusters (k versus WCCS)
+
+----------------------------------------------
+Introduction to Data Visualizations Essentials
+----------------------------------------------
+
+Course introduction: Sounds like there will be mostly Excel, Power BI and R in this clas. Fine with me.
+
+1. Project Dev. and Planning:
+- Visualization is the "art of storytelling with numbers and graphics"
+- Perspective, People, Questions, KPI's (Key Performance Indicators)
+
+2. Viz projects are often slightly different from Software Dev projects in that they:
+- have greater ambiguity
+- high expectations
+- many interested stakeholders
+- many uncontrollable factors
+
+3. Framework for Viz Projects: (How to approach a new project succesfully)
+- Perspective: bring outside perspective to the project
+- Keep bias out of the project in early phases
+- Be flexible in considering a change in project scope
+
+What people to include:
+- Manager (for connections and cross-team access)
+- Connect with Infrastructure group for support
+- Have a kickoff meeting (what do you cover in the kickoff?)
+
+Ask the right questions to help you determine what the client needs
+- What is their main day-to-day and long term focus
+- What metrics do they currently use
+- What are their current pain points
+- How will your report/product be used in their dauly work and in decision making
+- What databases do they currently use (and if possible speak to their DBA)
+
+Come up with the right KPIs
+- Usually these are a measurement-per-unit
+- Frequently used KPI
+- Industry specific KPI
+- Use standard descriptions like Mean, Median, Mode, etc
+- Name your metrics
+- Document the formulas you use and get peer review
+
