@@ -305,3 +305,45 @@ Come up with the right KPIs
 - Name your metrics
 - Document the formulas you use and get peer review
 
+-----------------------------------------------------
+Dirty secrets about metrics - http://www.itsmsolutions.com/newsletters/DITYvol5iss33.htm
+-----------------------------------------------------
+Using the trip analogy, the goal might be to get across the desert. Goals are extending, and should grow an organization. In this analogy a goal is the destination. Critical Success Factors (CSF) are things you have to do to achieve the goal, CSFs are attainable. One CSF from our analogy might be to avoid overheating. A KPI is a measure of some property of a CSF. The KPI in this analogy might be water temperature, as expressed by a temperature gauge. By watching the water temperature gauge we have an indication if we are likely to meet the requirement to avoid overheating, and if we do not overheat, we stand a good chance of driving across the desert.
+
+If we were not crossing the desert in a car then our CSF and KPI would probably be quite different. For example, if we were flying a plane across the dessert instead of driving a car through it, we would probably also want to know about air speed and altitude, and water temperature might not be required.
+
+KPI metrics (like water temperature) derive from CSFs (like avoiding overheating). CSFs derive from goals (like driving a car across the desert). Goals derive from current process maturity and business/mission requirements. Every goal will probably have unique CSFs, which in turn probably have unique KPIs.
+
+----------------------------------------------------------
+Using Key Performance Indicators in Dashboards - https://www.stickyminds.com/article/building-software-development-dashboards-key-performance-indicators
+----------------------------------------------------------
+Key performance indicators help managers gauge the team’s progress, understand what phase the project is in, and figure out where costs, goals, or processes need to be adjusted. This article details some typical KPIs to be used in dashboards to provide business analytics and communicate information in the most useful way.
+
+When you are giving a presentation and showing analytic information, the charts should speak for themselves. Any picture, graph, or chart you need to explain is not clear enough.
+
+----------------------------------------------------------
+Elements of a great Scrum Team - https://www.infoq.com/articles/great-scrum-team#
+----------------------------------------------------------
+
+---------------------------------
+DV2 Class Notes - SQL
+---------------------------------
+
+sqlite> .schema laptops
+CREATE TABLE laptops(
+  "id" TEXT,
+  "model" TEXT,
+  "speed" TEXT,
+  "ram" TEXT,
+  "hdd" TEXT
+);
+sqlite> .schema products
+CREATE TABLE products(
+  "maker" TEXT,
+  "model" TEXT,
+  "type" TEXT
+);
+
+List all the laptops made by maker 'a' and 'b' - include maker, model, id, speed, ram and hdd
+
+select products.maker, products.model, products.type, laptops.speed, laptops.ram, laptops.hdd FROM products left outer join laptops on products.model = laptops.model where products.type = 'Laptop' and products.maker in ('a', 'b');

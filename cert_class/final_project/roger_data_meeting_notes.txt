@@ -69,6 +69,7 @@ sqlite> .separator "|"
 sqlite> .import "new_kitty_litter.csv" sales
 sqlite> .tables
 sqlite> .mode columns
+.headers on
 sqlite> .width 80
 
 NOTE: If you want to see results "unaligned", do the following
