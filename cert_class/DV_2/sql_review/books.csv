@@ -1,4 +1,4 @@
-BookID|BookNAme|AuthorID
+book_id|book_name|author_id
 101|Modern Operating System|3
 102|Thinking in Java|1
 104|Programming in Scala|5

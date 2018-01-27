@@ -1,4 +1,4 @@
-OrderID|OrderTotal|ItemID
+order_id|order_total|item_id
 1|100|123
 2|200|124
 3|300|126
