@@ -9,9 +9,9 @@ install.packages("sqldf") #install the sqldf pkg
 # Using RODBC to connect to a database
 #####################################################################
 require("RODBC")
-# Create a connection 
+# Create a connection
 
-# Using a DSN: If you have already created a DSN for AdventureWorks, 
+# Using a DSN: If you have already created a DSN for AdventureWorks,
 # then you could do the following. If you have not created a DSN yet
 # please follow the instructions in the course and then continue..
 con = odbcConnect("AdventureWorks")
@@ -32,8 +32,8 @@ write.csv(hr_emp, "hr_emp.csv", row.names = FALSE)
 #####################################################################
 # Using RODBC to execute queries from a data base
 #####################################################################
-# Question: Using tables HumanResources_Employee, 
-# HumanResources_EmployeeAddress and Person_Address, 
+# Question: Using tables HumanResources_Employee,
+# HumanResources_EmployeeAddress and Person_Address,
 # create a table that contains EmployeeID and City
 
 # Let's first explore the three tables
@@ -45,13 +45,13 @@ head(sqlQuery(con, "Select * from Person_Address"))
 
 # Here is how the query looks
 # notice the quotes before and after the sql string
-sql_str = "Select t1.EmployeeID, 
-t2.AddressID, 
-t3.City 
-FROM HumanResources_Employee t1 
-LEFT OUTER JOIN HumanResources_EmployeeAddress t2 
-ON t1.EmployeeID = t2.EmployeeID 
-LEFT OUTER JOIN Person_Address t3 
+sql_str = "Select t1.EmployeeID,
+t2.AddressID,
+t3.City
+FROM HumanResources_Employee t1
+LEFT OUTER JOIN HumanResources_EmployeeAddress t2
+ON t1.EmployeeID = t2.EmployeeID
+LEFT OUTER JOIN Person_Address t3
 ON t3.AddressID = t2.AddressID"
 
 # this will show the output of the sql query that we wrote above
@@ -79,17 +79,17 @@ print(hr_emp)
 # Using sqldf to run SQL on R data frames or data tables
 #####################################################################
 require(sqldf)
-# Question 1: From the hr_emp dataset, find the EmployeeIDs 
+# Question 1: From the hr_emp dataset, find the EmployeeIDs
 # and LoginIDs of those employees who have over 20 hrs of Vacation
 dt = sqldf("Select EmployeeID, LoginID from hr_emp where VacationHours>20")
 class(dt)
 
-# Question 2: From the hr_emp dataset, find the EmployeeIDs of those employees 
+# Question 2: From the hr_emp dataset, find the EmployeeIDs of those employees
 # who have over 20 hrs of Vacation
 # ...AND have the word "Technician" in their Title
-sql_statement = "Select EmployeeID, 
-LoginID 
-from hr_emp 
+sql_statement = "Select EmployeeID,
+LoginID
+from hr_emp
 where VacationHours>20 AND Title like '%Technician%'"
 sqldf(sql_statement)
 
@@ -99,7 +99,7 @@ sqldf(sql_statement)
 #####################################################################
 # Syntax: data_table_name[ where_conditions, columns_to_select, extra_parameters]
 
-# Question 1: From the hr_emp dataset, find the EmployeeIDs and LoginIDs of those employees 
+# Question 1: From the hr_emp dataset, find the EmployeeIDs and LoginIDs of those employees
 # who have over 20 hrs of Vacation
 # The SQL statement was: ("Select EmployeeID, LoginID from hr_emp where VacationHours>20")
 # In data.table, the data_table_name = hr_emp; where_conditions = VacationHours>20
@@ -125,14 +125,12 @@ print(hr_emp)
 
 hr_emp[is.null(hr_emp)]=999 #where is.na is replaced by is.null.
 
-# In this example, we will take the hr_emp table and group employees who have more than 10 hours of 
-# VacationHours into a group called Eligible. We could do this two ways. The bad way to do this 
-# will be to overwrite the values in the VacationHours column with a Yes/No flag. 
-# The good way to do this will be to create a new column, say, Benefits_Eligible. This column 
-# could have values of Yes or No depending on the value of the VacationHours column. 
-#Let's see how to do this using data.table package
-# Syntax dataset[conditions, new_column := "your value", ]
+ 
+# create a new column, say, Benefits_Eligible. This column will take the hr_emp table and group employees
+# who have more than 10 hours of VacationHours into a group called Eligible.
 # Those with VacationHours>10 are Benefits eligible
+
+# Syntax dataset[conditions, new_column := "your value", ]
 hr_emp[VacationHours>10,  Benefits_Eligible := "Yes", ]
 
 # Those with VacationHours<=10 are Benefits ineligible
@@ -141,7 +139,7 @@ hr_emp[VacationHours<=10, Benefits_Eligible := "No",  ]
 # Pay attention to the new column "Benefits_Eligible" that is created at the end of the dataset
 print(hr_emp)
 
-# Consider the following example: In the hr_emp table, convert the EmployeeID to factor 
+# Consider the following example: In the hr_emp table, convert the EmployeeID to factor
 # and then back to integer
 hr_emp[, EmployeeID := as.factor(EmployeeID), ]
 
@@ -154,9 +152,9 @@ hr_emp[, EmployeeID := as.integer(EmployeeID), ]
 # Notice that the variable class of EmployeeID column has now changed to integer with 3 values
 class(hr_emp$EmployeeID)
 
-# Similarly, you will frequently use the following transformations: 
-# 1. as.numeric() works for integers and decimals 
-# 2. as.character() 
+# Similarly, you will frequently use the following transformations:
+# 1. as.numeric() works for integers and decimals
+# 2. as.character()
 # 3. as.Date See example:   or  as.Date("03-15-2017", format = "%m-%d-%Y")
 
 as.Date("02/22/17", format = "%m/%d/%y")
