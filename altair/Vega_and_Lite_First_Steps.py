@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 import pandas as pd
@@ -9,19 +9,19 @@ import pandas as pd
 df = pd.read_json('cars.json')
 
 
-# In[5]:
+# In[2]:
 
 
 df.head()
 
 
-# In[7]:
+# In[3]:
 
 
 from vega import VegaLite
 
 
-# In[8]:
+# In[4]:
 
 
 VegaLite({
@@ -33,19 +33,19 @@ VegaLite({
 }, df)
 
 
-# In[18]:
+# In[5]:
 
 
 geo_df = pd.read_csv('unemployment.tsv', sep='\t')
 
 
-# In[20]:
+# In[6]:
 
 
 geo_df.head()
 
 
-# In[24]:
+# In[7]:
 
 
 map_spec = {
@@ -64,5 +64,5 @@ map_spec = {
           }
 }
 
-VegaLite(vega_spec)
+VegaLite(map_spec)
 
