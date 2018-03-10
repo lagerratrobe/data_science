@@ -1,0 +1,41 @@
+## Class 6 Assignment
+
+Use AdventureWorks Excel Report. Save your final Power BI report file as *Studentname-L06_MProject2*, replacing Studentname with your own. Once you complete the tasks, submit the document below.
+
+1. [X] Rename Tables or Columns to report friendly names.
+2. [X] Hide any columns not required in the report.
+      - fields used to establish relationships between tables, ie 'id' or 'key' tables
+      - Calculated values (sigma columns)
+3. [X] Delete any Columns/Tables that are not needed in this model.
+4. [X] Organize the tables in the relationship view using the Collie Method
+5. [X] Create a DAX Measures Table
+      - External Data --> Add Table "DAX Measures"
+      - Click on measures field --> Modeling Tab --> Home Table (change to "DAX Measures")
+      - Delete empty column
+
+#### Objects to Create on Report Page
+- Charts
+	1. [X] Comparison Chart: Total Expenses vs. Total Profits - over time
+        - Between categories, or across time
+	2. [X] Composition Chart:
+        - Total Sales by Sales Rep. (Horizontal clustered Bar chart)
+	3. [X] Relationship Chart
+        - Scatter plot showing Total Orders against Total Sales
+- Slicer
+- Table
+
+#### Charting Practices to demonstrate
+- [X] Color Hues
+- Color Intensity
+- [X] Trend Line
+
+#### Chart Practices to avoid
+- Pie Chart
+- Chart Junk:
+	1. Incorrect Data Labels
+	2. Background colors
+	3. Non Complementary colors
+	4. Incorrect use of color
+- Axis ranges that don't start from 0
+
+"beautiful marriage between Excel and Powerpoint" - yeah, right.
