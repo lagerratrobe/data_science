@@ -1,0 +1,41 @@
+1. PowerBI.com dashboards can only contain tiles from a single published Power BI report. True or False
+
+2. The best default setting for workspace users is to set everyone with edit permissions.
+[False]
+
+3. You can pin slicers to PowerBI.com dashboards. True or False
+
+4. You can share a local Power BI Desktop report file, just like an Excel Report file. True or False
+
+5. The desktop view and phone view for a dashboard have to match layout and design True or False
+
+6. When pinning a visual from a Power BI report, any filter or slicers set during the time of pinning remain attached to the visual tile. Even after the data refreshes. True or False
+
+7. Where can you access Q&A settings such as turning Q&A on/off, or adding a featured question? (Report, Dataset, Workbook, Dashboard)
+
+8. After you've pinned a new tile using Q&amp;A, it automatically gets added to the phone view as well. True or False
+
+9. What other Microsoft tool allows more advances alerts to be created with a Power BI Dashboard? (PowerApps, Azure, Dynamics CRM, Flow)
+
+10. What is the maximum frequency at which you'll be sent an email when you subscribe to a dashboard refresh? (1x, 2x, 3x, 4x a day)
+
+11. Analyze in Excel works by downloading a local copy of the data model from Power BI, into the Power Pivot data model. True or False
+
+12. Row Level Security won't work if you publish the report to a PowerBI.com workspace that has all its members set to 'edit' access.
+[True]
+
+13. Which of the following is not a feature of Power BI Service?
+  - Stream live data from a published PBI report.
+  - Add additional custom DAX measures or columns using a live data connection.
+  - Connect to multiple Power BI Service models in the same PBI report.
+
+14. In order to access a report or data model using Analyze in Excel, you must first be a member of the Workspace where the report or data model has been published on PowerBI.com  True or False
+
+15. Which of these data connections would require a Power BI Data Gateway for refreshes?
+  - On-Premises Server (Database)
+  - On-Premises Server (Flat Files)
+  - Cloud Based Server (Database)
+  - Cloud Based File Locations (SharePoint, Google Drive, Dropbox)
+  - Cloud Based CRM (SharePoint, Dynamics CRM)
+
+16. You can only add one DAX filter per role created for Row Level Security. True or False

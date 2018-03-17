@@ -1,0 +1,40 @@
+The report included with this assignment is almost ready for distribution to the clients. However there are still some areas that need cleaned up or fixed. These issues can range from:
+
+- aesthetic design
+- color schemes
+- naming
+- formatting
+- mis-labeling
+
+** Additionally, there’s one DAX calculation that needs to be added to this report as well. ** Using the Sales Report Power BI Desktop (.pbix) file, please incorporate the following checks or changes to the file, then upload the file with all the changes.
+
+Steps to Complete in Power BI:
+Read each of the prompts and write down the changes you would make in the textbox below, then incorporate the changes into the Sales Report Power BI Desktop file. After you answer all the prompts and incorporate all the changes submit the revised Power BI file.
+
+1. Identify and make any changes that could be made with the Card Visualizations.
+  [X] Add corporate logo
+  [X] Resize Report title
+
+2. Identify any changes that could be made with the slicers.
+  N/A - They seemed fine to me
+
+3. Identify any changes that could be made with the non-data objects.
+  [X] Changed color of separating lines
+
+4. Identify any changes that could be made with the table visualization. Do not change the fields.
+
+5. Identify any changes that could be made with the clustered bar and line graph combo visualization. Do not         change the fields.
+  [X] Changed colors
+  [X] Updated title to match style of other sections
+
+6. Identify any changes that could be made with the tree map visualization.
+  [X] Changed the colors
+  [X] made it larger
+  [X] Changed the size and color of the title text
+
+7. The client would like the line graph to be changed to a clustered bar chart, and to have the DAX measure          changed to a profits running total YTD. Please incorporate these changes.
+  [X] Changed graph type
+  [ ] Couldn't figure out how to make a running-YTD measure
+
+- To submit your assignment
+Save your file as Studentname-L07_Assignment, replacing Studentname with your own.
